@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:gravity="center">
+    <Button
+        android:layout_width="200dip"
+        android:layout_height="200dip"
+        android:id="@+id/loginLogo"
+        android:background="@drawable/clkstop" />
+    <TextView
+        android:text="[학생]"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        android:gravity="center_horizontal"
+        android:textSize="20sp" />
+    <EditText
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputId"
+        android:hint="ID"
+        android:theme="@android:style/Theme.Material.Light"
+        android:layout_marginLeft="70dip"
+        android:layout_marginRight="70dip"
+        android:layout_marginTop="15dip" />
+    <EditText
+        android:inputType="textPassword"
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputPw"
+        android:hint="PW"
+        android:theme="@android:style/Theme.Material.Light"
+        android:layout_marginLeft="70dip"
+        android:layout_marginRight="70dip"
+        android:layout_marginBottom="10dip" />
+    <TextView
+        android:text="# ID, PW를 입력하고 Logo를 클릭하면 시작됩니다."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appInfo"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:text="# Logo를 길게 클릭하면 교사/교직원으로 변경됩니다."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/statusInfo"
+        android:gravity="center_horizontal" />
+</LinearLayout>
