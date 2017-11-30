@@ -40,7 +40,7 @@ namespace KiwiLibrary {
 			httpRequest.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
 			
 			//https 인증서 설정
-			//httpRequest.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+			httpRequest.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
 
 			return httpRequest;
 		}
