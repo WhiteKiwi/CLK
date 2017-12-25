@@ -38,6 +38,7 @@
 			this.tcrRadioButton = new System.Windows.Forms.RadioButton();
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.headerPanel = new System.Windows.Forms.Panel();
+			this.label6 = new System.Windows.Forms.Label();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.creditButton = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
 			this.contextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.headerPanel.SuspendLayout();
@@ -129,7 +129,7 @@
 			this.changeUserButton.Name = "changeUserButton";
 			this.changeUserButton.Size = new System.Drawing.Size(213, 26);
 			this.changeUserButton.TabIndex = 0;
-			this.changeUserButton.Text = "로그아웃";
+			this.changeUserButton.Text = "사용자 변경";
 			this.changeUserButton.UseVisualStyleBackColor = false;
 			this.changeUserButton.Click += new System.EventHandler(this.changeUserButton_Click);
 			// 
@@ -192,6 +192,17 @@
 			this.headerPanel.TabIndex = 7;
 			this.headerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.headerPanel_MouseDown);
 			this.headerPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.headerPanel_MouseMove);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.label6.ForeColor = System.Drawing.Color.White;
+			this.label6.Location = new System.Drawing.Point(141, 15);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(44, 21);
+			this.label6.TabIndex = 12;
+			this.label6.Text = "CLK";
 			// 
 			// pictureBox2
 			// 
@@ -328,17 +339,6 @@
 			this.label5.Size = new System.Drawing.Size(289, 14);
 			this.label5.TabIndex = 11;
 			this.label5.Text = "실행하기 전에 큰사넷에 로그인 되어 있는지 확인해주세요";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label6.ForeColor = System.Drawing.Color.White;
-			this.label6.Location = new System.Drawing.Point(141, 15);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(44, 21);
-			this.label6.TabIndex = 12;
-			this.label6.Text = "CLK";
 			// 
 			// CLK
 			// 

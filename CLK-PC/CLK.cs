@@ -124,11 +124,11 @@ namespace CLK {
 				cnsaPw = inputPw.Text;
 
 				if (studentRadioButton.Checked) {   // 학생일 경우
-					urlIntraNet = "http:// 10.1.100.32";
-					urlExtraNet = "https:// student.cnsa.hs.kr";
+					urlIntraNet = "http://10.1.100.32";
+					urlExtraNet = "https://student.cnsa.hs.kr";
 				} else {    // 선생님 || 교직원 일 경우
-					urlIntraNet = "http:// 10.1.100.31";
-					urlExtraNet = "https:// school.cnsa.hs.kr";
+					urlIntraNet = "http://10.1.100.31";
+					urlExtraNet = "https://school.cnsa.hs.kr";
 				}
 
 				// CNSA net에서 Session을 받아옴
@@ -279,7 +279,7 @@ namespace CLK {
 				tcrRadioButton.Enabled = false;
 				employeeRadioButton.Enabled = false;
 
-				label5.Text = "다른 계정을 사용하시려면 로그아웃해주세요";
+				label5.Text = "다른 계정을 사용하시려면 사용자 변경 버튼을 눌러주세요";
 			}
 		}
 
