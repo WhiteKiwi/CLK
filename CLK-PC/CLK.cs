@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading;
 using KiwiLibrary;
 using System.Drawing;
+using System.Net.NetworkInformation;
+using System.Linq;
 
 namespace CLK {
 	public partial class CLK : Form {
@@ -23,6 +25,8 @@ namespace CLK {
 		string urlIntraNet;
 		// 외부망 주소를 저장할 변수
 		string urlExtraNet;
+		// 주소를 저장할 변수
+		string urlNet;
 
 		// 스레드를 저장할 변수
 		Thread keepSession;
@@ -73,7 +77,7 @@ namespace CLK {
 			// 무한 반복
 			while (true) {
 				// CNSA net에서 저장된 Session 받아오기
-				string nowSession = Encoding.UTF8.GetString(Web.DownloadData(urlExtraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+				string nowSession = Encoding.UTF8.GetString(Web.DownloadData(urlNet + "/login/dupLoginCheck?loginId=" + cnsaId));
 
 				// Session이 저장된 세션과 다르고 저장된 세션이 비어있지 않을 경우 -> 저장된 Session 교체
 				if (!session.Equals(nowSession) && !nowSession.Trim().Equals("")) {
@@ -89,7 +93,7 @@ namespace CLK {
 				}
 
 				// 로그인을 통한 Session 갱신
-				Web.UploadValues(urlExtraNet + "/login/userLogin", new NameValueCollection() {
+				Web.UploadValues(urlNet + "/login/userLogin", new NameValueCollection() {
 					{ "loginId", cnsaId },
 					{ "loginPw", cnsaPw }
 				});
@@ -116,63 +120,78 @@ namespace CLK {
 				// MessageBox 띄움
 				MessageBox.Show("패스워드를 입력해 주세요.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			} else {
-				// CookieAwareWebClient 생성
-				Web = new CookieAwareWebClient();
+				// 네트워크가 연결되어 있는지 확인 (인터넷 연결 여부는 관계없음)
+				if (NetworkInterface.GetIsNetworkAvailable()) {
+					// CookieAwareWebClient 생성
+					Web = new CookieAwareWebClient();
 
-				// CNSA net Id, Pw 저장
-				cnsaId = inputId.Text;
-				cnsaPw = inputPw.Text;
+					// CNSA net Id, Pw 저장
+					cnsaId = inputId.Text;
+					cnsaPw = inputPw.Text;
 
-				if (studentRadioButton.Checked) {   // 학생일 경우
-					urlIntraNet = "http://10.1.100.32";
-					urlExtraNet = "https://student.cnsa.hs.kr";
-				} else {    // 선생님 || 교직원 일 경우
-					urlIntraNet = "http://10.1.100.31";
-					urlExtraNet = "https://school.cnsa.hs.kr";
-				}
+					if (studentRadioButton.Checked) {   // 학생일 경우
+						urlIntraNet = "http://10.1.100.32";
+						urlExtraNet = "https://student.cnsa.hs.kr";
+					}
+					else {    // 선생님 || 교직원 일 경우
+						urlIntraNet = "http://10.1.100.31";
+						urlExtraNet = "https://school.cnsa.hs.kr";
+					}
 
-				// CNSA net에서 Session을 받아옴
-				session = Encoding.UTF8.GetString(Web.DownloadData(urlExtraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+					urlNet = urlIntraNet;
+					if (IsInternetConnected()) {
+						urlNet = urlExtraNet;
+					}
 
-				// session이 존재할 경우 (로그인이 되어 있을 경우)
-				if (!session.Trim().Equals("")) {
-					// session 값을 저장
-					Web.AddCookie(new Uri(urlIntraNet), new Cookie("JSESSIONID", session));
-					Web.AddCookie(new Uri(urlExtraNet), new Cookie("JSESSIONID", session));
+					// CNSA net에서 Session을 받아옴
+					session = Encoding.UTF8.GetString(Web.DownloadData(urlNet + "/login/dupLoginCheck?loginId=" + cnsaId));
 
-					// 로그인 시도
-					string responseData = Encoding.UTF8.GetString(Web.UploadValues(urlExtraNet + "/login/userLogin", new NameValueCollection() {
+					// session이 존재할 경우 (로그인이 되어 있을 경우)
+					if (!session.Trim().Equals("")) {
+						// session 값을 저장
+						Web.AddCookie(new Uri(urlIntraNet), new Cookie("JSESSIONID", session));
+						Web.AddCookie(new Uri(urlExtraNet), new Cookie("JSESSIONID", session));
+
+						// 로그인 시도
+						string responseData = Encoding.UTF8.GetString(Web.UploadValues(urlNet + "/login/userLogin", new NameValueCollection() {
 						{ "loginId", cnsaId },
 						{ "loginPw", cnsaPw }
 					}));
 
-					// requestData에 특정 문자열이 포함되어 있을 경우 로그인 성공으로 간주
-					if (!responseData.Contains("/login/userLogin")) {   
-						// 현재 창 숨기기
-						this.Hide();
-						// Tray Icon 표시
-						notifyIcon.Visible = true;
+						// requestData에 특정 문자열이 포함되어 있을 경우 로그인 성공으로 간주
+						if (!responseData.Contains("/login/userLogin")) {
+							// 현재 창 숨기기
+							this.Hide();
+							// Tray Icon 표시
+							notifyIcon.Visible = true;
 
-						// Session 유지 스레드 생성
-						keepSession = new Thread(KeepSession);
-						// Session 유지 시작
-						keepSession.Start();
+							// Session 유지 스레드 생성
+							keepSession = new Thread(KeepSession);
+							// Session 유지 시작
+							keepSession.Start();
 
-						// 알림 띄우기
-						notifyIcon.BalloonTipTitle = "Login Keeper";
-						notifyIcon.BalloonTipText = "CNSA Login Keeper를 시작합니다.";
-						notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-						notifyIcon.ShowBalloonTip(3000);
+							// 알림 띄우기
+							notifyIcon.BalloonTipTitle = "Login Keeper";
+							notifyIcon.BalloonTipText = "CNSA Login Keeper를 시작합니다.";
+							notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+							notifyIcon.ShowBalloonTip(3000);
 
-						// Session 유지 시작 -> openToolStripMenuItem.Text = "사용자 변경" 으로 설정
-						reloginToolStripMenuItem.Text = "사용자 변경";
-					} else {  // 로그인 실패
-							  // MessageBox 띄움
-						MessageBox.Show("로그인 정보가 일치하지 않습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+							// Session 유지 시작 -> openToolStripMenuItem.Text = "사용자 변경" 으로 설정
+							reloginToolStripMenuItem.Text = "사용자 변경";
+						}
+						else {  // 로그인 실패
+								// MessageBox 띄움
+							MessageBox.Show("로그인 정보가 일치하지 않습니다.", "로그인 실패", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+						}
 					}
-				} else {  // session이 존재하지 않을 경우 (로그인이 되어 있지 않을 경우)
-						  // MessageBox 띄움
-					MessageBox.Show("유지할 데이터가 존재하지 않습니다.\n아이디와 패스워드 또는 현재 로그인 되어있는지를 확인해 주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					else {  // session이 존재하지 않을 경우 (로그인이 되어 있지 않을 경우)
+							// MessageBox 띄움
+						MessageBox.Show("유지할 데이터가 존재하지 않습니다.\n아이디와 패스워드 또는 현재 로그인 되어있는지를 확인해 주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+				}
+				else {
+					MessageBox.Show("네트워크 연결상태를 확인해 주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
 				}
 			}
 		}
@@ -384,6 +403,34 @@ namespace CLK {
 					return true;
 			}
 			return false;
+		}
+
+		// 인터넷 연결상태 확인
+		public bool IsInternetConnected() {
+			const string NCSI_TEST_URL = "http://www.msftncsi.com/ncsi.txt";
+			const string NCSI_TEST_RESULT = "Microsoft NCSI";
+			const string NCSI_DNS = "dns.msftncsi.com";
+			const string NCSI_DNS_IP_ADDRESS = "131.107.255.255";
+
+			try {
+				// Check NCSI test link
+				var webClient = new WebClient();
+				string result = webClient.DownloadString(NCSI_TEST_URL);
+				if (result != NCSI_TEST_RESULT) {
+					return false;
+				}
+
+				// Check NCSI DNS IP
+				var dnsHost = Dns.GetHostEntry(NCSI_DNS);
+				if (dnsHost.AddressList.Count() < 0 || dnsHost.AddressList[0].ToString() != NCSI_DNS_IP_ADDRESS) {
+					return false;
+				}
+			}
+			catch {
+				return false;
+			}
+
+			return true;
 		}
 	}
 } 
