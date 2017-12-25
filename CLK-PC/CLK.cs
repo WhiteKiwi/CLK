@@ -7,7 +7,6 @@ using System.Threading;
 using KiwiLibrary;
 using System.Drawing;
 using System.Net.NetworkInformation;
-using System.Linq;
 
 namespace CLK {
 	public partial class CLK : Form {
@@ -138,10 +137,10 @@ namespace CLK {
 						urlExtraNet = "https://school.cnsa.hs.kr";
 					}
 
-					urlNet = urlIntraNet;
-					if (IsInternetConnected()) {
-						urlNet = urlExtraNet;
-					}
+					// 연결할 페이지 결정 (내부망/외부망)
+					urlNet = urlExtraNet;
+					if (IsConnectedIntraNet())
+						urlNet = urlIntraNet;
 
 					// CNSA net에서 Session을 받아옴
 					session = Encoding.UTF8.GetString(Web.DownloadData(urlNet + "/login/dupLoginCheck?loginId=" + cnsaId));
@@ -176,7 +175,6 @@ namespace CLK {
 							notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
 							notifyIcon.ShowBalloonTip(3000);
 
-
 							// Session 유지 시작 -> openToolStripMenuItem.Text = "사용자 변경" 으로 설정
 							reloginToolStripMenuItem.Text = "사용자 변경";
 						}
@@ -191,9 +189,36 @@ namespace CLK {
 					}
 				}
 				else {
-					MessageBox.Show("네트워크 연결상태를 확인해 주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					MessageBox.Show("네트워크 연결상태를 확인해 주세요.", "알림", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				}
 			}
+		}
+
+		// 사용자의 PC가 내부망에 연결되어 있는지 확인
+		private bool IsConnectedIntraNet() {
+			try {
+				// CNSA net에서 Session을 받아옴
+				session = Encoding.UTF8.GetString(Web.DownloadData(urlIntraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+
+				// session이 존재할 경우 (로그인이 되어 있을 경우)
+				if (!session.Trim().Equals("")) {
+					// session 값을 저장
+					Web.AddCookie(new Uri(urlIntraNet), new Cookie("JSESSIONID", session));
+					Web.AddCookie(new Uri(urlExtraNet), new Cookie("JSESSIONID", session));
+				}
+				// 로그인 시도
+				string responseData = Encoding.UTF8.GetString(Web.UploadValues(urlIntraNet + "/login/userLogin", new NameValueCollection() {
+						{ "loginId", cnsaId },
+						{ "loginPw", cnsaPw }
+					}));
+			}
+			// WebException이 발생하면 내부망에 연결되어있지 않은 것으로 간주
+			catch (WebException e) {
+				return false;
+			}
+
+			// 문제가 없으면 내부망에 연결된 것으로 간주
+			return true;
 		}
 
 		// Form - 사용자 변경 버튼 클릭 시
@@ -403,34 +428,6 @@ namespace CLK {
 					return true;
 			}
 			return false;
-		}
-
-		// 인터넷 연결상태 확인
-		public bool IsInternetConnected() {
-			const string NCSI_TEST_URL = "http://www.msftncsi.com/ncsi.txt";
-			const string NCSI_TEST_RESULT = "Microsoft NCSI";
-			const string NCSI_DNS = "dns.msftncsi.com";
-			const string NCSI_DNS_IP_ADDRESS = "131.107.255.255";
-
-			try {
-				// Check NCSI test link
-				var webClient = new WebClient();
-				string result = webClient.DownloadString(NCSI_TEST_URL);
-				if (result != NCSI_TEST_RESULT) {
-					return false;
-				}
-
-				// Check NCSI DNS IP
-				var dnsHost = Dns.GetHostEntry(NCSI_DNS);
-				if (dnsHost.AddressList.Count() < 0 || dnsHost.AddressList[0].ToString() != NCSI_DNS_IP_ADDRESS) {
-					return false;
-				}
-			}
-			catch {
-				return false;
-			}
-
-			return true;
 		}
 	}
 } 
