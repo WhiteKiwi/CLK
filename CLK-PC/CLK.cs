@@ -197,20 +197,8 @@ namespace CLK {
 		// 사용자의 PC가 내부망에 연결되어 있는지 확인
 		private bool IsConnectedIntraNet() {
 			try {
-				// CNSA net에서 Session을 받아옴
+				// CNSA net 내부망에서 Session을 받아옴
 				session = Encoding.UTF8.GetString(Web.DownloadData(urlIntraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
-
-				// session이 존재할 경우 (로그인이 되어 있을 경우)
-				if (!session.Trim().Equals("")) {
-					// session 값을 저장
-					Web.AddCookie(new Uri(urlIntraNet), new Cookie("JSESSIONID", session));
-					Web.AddCookie(new Uri(urlExtraNet), new Cookie("JSESSIONID", session));
-				}
-				// 로그인 시도
-				string responseData = Encoding.UTF8.GetString(Web.UploadValues(urlIntraNet + "/login/userLogin", new NameValueCollection() {
-						{ "loginId", cnsaId },
-						{ "loginPw", cnsaPw }
-					}));
 			}
 			// WebException이 발생하면 내부망에 연결되어있지 않은 것으로 간주
 			catch (WebException e) {
