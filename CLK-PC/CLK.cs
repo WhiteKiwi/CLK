@@ -7,6 +7,7 @@ using System.Threading;
 using KiwiLibrary;
 using System.Drawing;
 using System.Net.NetworkInformation;
+using Microsoft.Win32;
 
 namespace CLK {
 	public partial class CLK : Form {
@@ -25,10 +26,11 @@ namespace CLK {
 		// 외부망 주소를 저장할 변수
 		string urlExtraNet;
 		// 주소를 저장할 변수
-		string urlNet;
+		string cnsaUrl;
 
 		// 스레드를 저장할 변수
 		Thread keepSession;
+		Thread checkIntraNet;
 
 		// 마우스 위치값을 저장할 변수
 		Point mousePoint;
@@ -69,6 +71,14 @@ namespace CLK {
 
 			// Tray Icon을 NotifyIcon에 연결
 			notifyIcon.ContextMenuStrip = contextMenuStrip;
+
+			// 시작 프로그램에 등록되어 있는지 확인
+			string runKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+			RegistryKey strUpKey = Registry.LocalMachine.OpenSubKey(runKey);
+			// 시작 프로그램에 CLK가 있을 경우
+			if (strUpKey.GetValue("CLK") != null) {
+				startProgramCheck.Checked = true;
+			}
 		}
 
 		// Thread Code - Session 유지를 위해 실행될 코드
@@ -76,7 +86,7 @@ namespace CLK {
 			// 무한 반복
 			while (true) {
 				// CNSA net에서 저장된 Session 받아오기
-				string nowSession = Encoding.UTF8.GetString(Web.DownloadData(urlNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+				string nowSession = Encoding.UTF8.GetString(Web.DownloadData(cnsaUrl + "/login/dupLoginCheck?loginId=" + cnsaId));
 
 				// Session이 저장된 세션과 다르고 저장된 세션이 비어있지 않을 경우 -> 저장된 Session 교체
 				if (!session.Equals(nowSession) && !nowSession.Trim().Equals("")) {
@@ -92,7 +102,7 @@ namespace CLK {
 				}
 
 				// 로그인을 통한 Session 갱신
-				Web.UploadValues(urlNet + "/login/userLogin", new NameValueCollection() {
+				Web.UploadValues(cnsaUrl + "/login/userLogin", new NameValueCollection() {
 					{ "loginId", cnsaId },
 					{ "loginPw", cnsaPw }
 				});
@@ -137,13 +147,15 @@ namespace CLK {
 						urlExtraNet = "https://school.cnsa.hs.kr";
 					}
 
-					// 연결할 페이지 결정 (내부망/외부망)
-					urlNet = urlExtraNet;
-					if (IsConnectedIntraNet())
-						urlNet = urlIntraNet;
+					// 사용할 큰사넷 주소 초기화
+					cnsaUrl = urlExtraNet;
+					// 내부망 / 외부망 확인 스레드 생성
+					checkIntraNet = new Thread(CheckIntraNet);
+					// 내부망 / 외부망 확인 시작
+					checkIntraNet.Start();
 
 					// CNSA net에서 Session을 받아옴
-					session = Encoding.UTF8.GetString(Web.DownloadData(urlNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+					session = Encoding.UTF8.GetString(Web.DownloadData(cnsaUrl + "/login/dupLoginCheck?loginId=" + cnsaId));
 
 					// session이 존재할 경우 (로그인이 되어 있을 경우)
 					if (!session.Trim().Equals("")) {
@@ -152,7 +164,7 @@ namespace CLK {
 						Web.AddCookie(new Uri(urlExtraNet), new Cookie("JSESSIONID", session));
 
 						// 로그인 시도
-						string responseData = Encoding.UTF8.GetString(Web.UploadValues(urlNet + "/login/userLogin", new NameValueCollection() {
+						string responseData = Encoding.UTF8.GetString(Web.UploadValues(cnsaUrl + "/login/userLogin", new NameValueCollection() {
 						{ "loginId", cnsaId },
 						{ "loginPw", cnsaPw }
 					}));
@@ -194,19 +206,19 @@ namespace CLK {
 			}
 		}
 
-		// 사용자의 PC가 내부망에 연결되어 있는지 확인
-		private bool IsConnectedIntraNet() {
+		// Thread Code - 내부망 / 외부망을 결정하기 위해 실행될 코드
+		private void CheckIntraNet() {
+			CookieAwareWebClient anotherWeb = new CookieAwareWebClient();
+			// 연결할 페이지 결정 (내부망/외부망)
 			try {
 				// CNSA net 내부망에서 Session을 받아옴
-				session = Encoding.UTF8.GetString(Web.DownloadData(urlIntraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+				session = Encoding.UTF8.GetString(anotherWeb.DownloadData(urlIntraNet + "/login/dupLoginCheck?loginId=" + cnsaId));
+				cnsaUrl = urlIntraNet;
 			}
 			// WebException이 발생하면 내부망에 연결되어있지 않은 것으로 간주
-			catch (WebException e) {
-				return false;
+			catch (WebException) {
+				cnsaUrl = urlExtraNet;
 			}
-
-			// 문제가 없으면 내부망에 연결된 것으로 간주
-			return true;
 		}
 
 		// Form - 사용자 변경 버튼 클릭 시
@@ -222,7 +234,7 @@ namespace CLK {
 			tcrRadioButton.Enabled = true;
 			employeeRadioButton.Enabled = true;
 
-			label5.Text = "실행하기 전에 큰사넷에 로그인 되어 있는지 확인해주세요";
+			infoLabel.Text = "실행하기 전에 큰사넷에 로그인 되어 있는지 확인해주세요";
 
 			// Session 유지 중일 경우
 			if (keepSession.IsAlive) {
@@ -256,6 +268,8 @@ namespace CLK {
 				startButton.PerformClick();
 			}
 		}
+
+
 
 		// Tray Icon - 열기 || 사용자 변경 클릭 시
 		private void openToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -311,7 +325,7 @@ namespace CLK {
 				tcrRadioButton.Enabled = false;
 				employeeRadioButton.Enabled = false;
 
-				label5.Text = "다른 계정을 사용하시려면 사용자 변경 버튼을 눌러주세요";
+				infoLabel.Text = "다른 계정을 사용하시려면 사용자 변경 버튼을 눌러주세요";
 			}
 		}
 
@@ -340,6 +354,7 @@ namespace CLK {
 		}
 
 
+
 		// Program - 프로그램 종료 시
 		private void SmartWorkers_FormClosing(object sender, FormClosingEventArgs e) {
 			// MessageBox를 띄운 후 결과 저장
@@ -360,13 +375,11 @@ namespace CLK {
 			}
 		}
 
-		// 종료 이미지를 클릭했을 때 프로그램 종료
-		private void pictureBox2_Click(object sender, EventArgs e) {
-			this.Close();
-		}
+
 
 		// 헤더 패널을 클릭하고 드래그할 때 폼 전체가 이동
 		private void headerPanel_MouseDown(object sender, MouseEventArgs e) {
+			// 현재의 마우스 좌표를 저장
 			mousePoint = new Point(e.X, e.Y);
 		}
 
@@ -379,43 +392,124 @@ namespace CLK {
 		}
 
 		// 헤더 패널을 클릭하고 드래그할 때 폼 전체가 이동
-		private void panel2_MouseDown(object sender, MouseEventArgs e) {
+		private void logoPanel_MouseDown(object sender, MouseEventArgs e) {
+			// 현재의 마우스 좌표를 저장
 			mousePoint = new Point(e.X, e.Y);
 		}
 
 		// 헤더 패널을 클릭하고 드래그할 때 폼 전체가 이동
-		private void panel2_MouseMove(object sender, MouseEventArgs e) {
+		private void logoPanel_MouseMove(object sender, MouseEventArgs e) {
 			if ((e.Button & MouseButtons.Left) == MouseButtons.Left) {
 				Location = new Point(this.Left - (mousePoint.X - e.X),
 					this.Top - (mousePoint.Y - e.Y));
 			}
 		}
 
-		// Setting 버튼을 클릭했을 때 Setting 폼 표시
+		// 헤더 패널을 클릭하고 드래그할 때 폼 전체가 이동
+		private void nameLabel_MouseDown(object sender, MouseEventArgs e) {
+			// 현재의 마우스 좌표를 저장
+			mousePoint = new Point(e.X, e.Y);
+		}
+
+		// 헤더 패널을 클릭하고 드래그할 때 폼 전체가 이동
+		private void nameLabel_MouseMove(object sender, MouseEventArgs e) {
+			if ((e.Button & MouseButtons.Left) == MouseButtons.Left) {
+				Location = new Point(this.Left - (mousePoint.X - e.X),
+					this.Top - (mousePoint.Y - e.Y));
+			}
+		}
+
+
+
+		// 로고를 클릭했을 때 CLK 패널 표시
+		private void logoPictureBox_Click(object sender, EventArgs e) {
+			clkPanel.Visible = true;
+			settingPanel.Visible = false;
+			creditPanel.Visible = false;
+
+			nameLabel.Text = "CLK";
+		}
+		// 로고를 클릭했을 때 CLK 패널 표시
+		private void cnsaLabel_Click(object sender, EventArgs e) {
+			clkPanel.Visible = true;
+			settingPanel.Visible = false;
+			creditPanel.Visible = false;
+
+			nameLabel.Text = "CLK";
+		}
+		// 로고를 클릭했을 때 CLK 패널 표시
+		private void loginkeeperLabel_Click(object sender, EventArgs e) {
+			clkPanel.Visible = true;
+			settingPanel.Visible = false;
+			creditPanel.Visible = false;
+
+			nameLabel.Text = "CLK";
+		}
+
+		// Setting 버튼을 클릭했을 때 Setting 패널 표시
 		private void settingButton_Click(object sender, EventArgs e) {
-			if (!IsFormExist("Setting")) {
-				Setting settingForm = new Setting();
-				settingForm.StartPosition = FormStartPosition.CenterScreen;
-				settingForm.Show();
-			}
+			clkPanel.Visible = false;
+			settingPanel.Visible = true;
+			creditPanel.Visible = false;
+
+			nameLabel.Text = "Setting";
 		}
 
-		// Credit 버튼을 클릭했을 때 Credit 폼 표시
+		// Credit 버튼을 클릭했을 때 Credit 패널 표시
 		private void creditButton_Click(object sender, EventArgs e) {
-			if (!IsFormExist("Credit")) {
-				Credit creditForm = new Credit();
-				creditForm.StartPosition = FormStartPosition.CenterScreen;
-				creditForm.Show();
-			}
+			clkPanel.Visible = false;
+			settingPanel.Visible = false;
+			creditPanel.Visible = true;
+
+			nameLabel.Text = "Credit";
 		}
 
-		// 폼 중복 실행을 방지하기 위해 폼이 열려있는지 확인
-		private bool IsFormExist(string formName) {
-			foreach (Form form in Application.OpenForms) {
-				if (form.Name == formName)
-					return true;
+		// 종료 이미지를 클릭했을 때 프로그램 종료
+		private void closePictureBox_Click(object sender, EventArgs e) {
+			this.Close();
+		}
+
+
+
+		// 설정 적용 버튼을 클릭했을 시 설정 적용
+		private void applyButton_Click(object sender, EventArgs e) {
+			// 레지스트리 키를 이용해서 CLK를 시작 프로그램에 등록
+			if (startProgramCheck.Checked) { // 체크박스가 체크되었을 경우 - CLK를 시작 프로그램에 등록
+				try {
+					string runKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+					RegistryKey strUpKey = Registry.LocalMachine.OpenSubKey(runKey);
+					// 시작 프로그램에 CLK가 없을 경우
+					if (strUpKey.GetValue("CLK") == null) {
+						strUpKey.Close();
+						strUpKey = Registry.LocalMachine.OpenSubKey(runKey, true);
+						// 시작프로그램에 CLK를 등록
+						strUpKey.SetValue("CLK", Application.ExecutablePath);
+					}
+				}
+				catch {
+					// 오류가 발생했을 경우 메세지박스 출력
+					MessageBox.Show("시작 프로그램 등록에 실패했습니다.", "Setting", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
 			}
-			return false;
+			else { // 체크박스가 해제되었을 경우 - CLK를 시작 프로그램에서 제거
+				try {
+					string runKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+					RegistryKey strUpKey = Registry.LocalMachine.OpenSubKey(runKey, true);
+					// 시작 프로그램에서 CLK 제거
+					strUpKey.DeleteValue("CLK");
+				}
+				catch {
+					// 오류가 발생했을 경우 메세지박스 출력
+					MessageBox.Show("시작 프로그램 제거에 실패했습니다.", "Setting", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+			}
+
+			// 설정이 완료되면 CLK 메인화면으로 이동
+			clkPanel.Visible = true;
+			settingPanel.Visible = false;
+			creditPanel.Visible = false;
+
+			nameLabel.Text = "CLK";
 		}
 	}
 } 

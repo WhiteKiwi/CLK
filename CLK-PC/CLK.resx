@@ -665,7 +665,7 @@
   <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>282, 17</value>
   </metadata>
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="logoPictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAE0AAABYCAYAAACwEnqYAAAABGdBTUEAALGPC/xhBQAABNdJREFUeF7t
         nM9rE0EUx6OlVN3W1t9pT/4J/gk9iqZQ0IueqidPogdRTJQqHhSEXqQHQdOqKOqhBY0iIrEtiihSBEFF
@@ -691,7 +691,7 @@
         RUnLdW5RhUozuUXXGmkmt9SqKc3klnrBY5jN3CoU/gJgS9afn1FPzAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="closePictureBox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAB9AAAAfQCAYAAACaOMR5AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
         wwAADsMBx2+oZAAAZlpJREFUeF7s21lu3Nq2bdFX/wKc6t5nwYptS45QMFnJTFoDBgjMD7IAHfx/v/zf

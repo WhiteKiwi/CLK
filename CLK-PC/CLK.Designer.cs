@@ -38,30 +38,39 @@
 			this.tcrRadioButton = new System.Windows.Forms.RadioButton();
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.headerPanel = new System.Windows.Forms.Panel();
-			this.label6 = new System.Windows.Forms.Label();
-			this.pictureBox2 = new System.Windows.Forms.PictureBox();
-			this.panel1 = new System.Windows.Forms.Panel();
+			this.nameLabel = new System.Windows.Forms.Label();
+			this.closePictureBox = new System.Windows.Forms.PictureBox();
+			this.menuPanel = new System.Windows.Forms.Panel();
 			this.creditButton = new System.Windows.Forms.Button();
 			this.settingButton = new System.Windows.Forms.Button();
-			this.panel2 = new System.Windows.Forms.Panel();
-			this.label2 = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label3 = new System.Windows.Forms.Label();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
+			this.logoPanel = new System.Windows.Forms.Panel();
+			this.loginkeeperLabel = new System.Windows.Forms.Label();
+			this.cnsaLabel = new System.Windows.Forms.Label();
+			this.logoPictureBox = new System.Windows.Forms.PictureBox();
+			this.idLabel = new System.Windows.Forms.Label();
+			this.pwLabel = new System.Windows.Forms.Label();
+			this.infoLabel = new System.Windows.Forms.Label();
+			this.clkPanel = new System.Windows.Forms.Panel();
+			this.settingPanel = new System.Windows.Forms.Panel();
+			this.applyButton = new System.Windows.Forms.Button();
+			this.startProgramCheck = new System.Windows.Forms.CheckBox();
+			this.creditPanel = new System.Windows.Forms.Panel();
+			this.creditLabel = new System.Windows.Forms.Label();
 			this.contextMenuStrip.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.headerPanel.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-			this.panel1.SuspendLayout();
-			this.panel2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).BeginInit();
+			this.menuPanel.SuspendLayout();
+			this.logoPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
+			this.clkPanel.SuspendLayout();
+			this.settingPanel.SuspendLayout();
+			this.creditPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// inputId
 			// 
-			this.inputId.Location = new System.Drawing.Point(171, 60);
+			this.inputId.Location = new System.Drawing.Point(33, 8);
 			this.inputId.Name = "inputId";
 			this.inputId.Size = new System.Drawing.Size(128, 21);
 			this.inputId.TabIndex = 1;
@@ -69,7 +78,7 @@
 			// 
 			// inputPw
 			// 
-			this.inputPw.Location = new System.Drawing.Point(171, 87);
+			this.inputPw.Location = new System.Drawing.Point(33, 35);
 			this.inputPw.Name = "inputPw";
 			this.inputPw.PasswordChar = '*';
 			this.inputPw.Size = new System.Drawing.Size(128, 21);
@@ -82,7 +91,7 @@
 			this.startButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.startButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.startButton.Location = new System.Drawing.Point(305, 60);
+			this.startButton.Location = new System.Drawing.Point(171, 8);
 			this.startButton.Name = "startButton";
 			this.startButton.Size = new System.Drawing.Size(50, 48);
 			this.startButton.TabIndex = 3;
@@ -125,7 +134,7 @@
 			this.changeUserButton.Enabled = false;
 			this.changeUserButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.changeUserButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.changeUserButton.Location = new System.Drawing.Point(142, 114);
+			this.changeUserButton.Location = new System.Drawing.Point(8, 62);
 			this.changeUserButton.Name = "changeUserButton";
 			this.changeUserButton.Size = new System.Drawing.Size(213, 26);
 			this.changeUserButton.TabIndex = 0;
@@ -140,7 +149,7 @@
 			this.studentRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.studentRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.studentRadioButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.studentRadioButton.Location = new System.Drawing.Point(361, 56);
+			this.studentRadioButton.Location = new System.Drawing.Point(227, 10);
 			this.studentRadioButton.Name = "studentRadioButton";
 			this.studentRadioButton.Size = new System.Drawing.Size(53, 19);
 			this.studentRadioButton.TabIndex = 4;
@@ -154,7 +163,7 @@
 			this.employeeRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.employeeRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.employeeRadioButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.employeeRadioButton.Location = new System.Drawing.Point(361, 106);
+			this.employeeRadioButton.Location = new System.Drawing.Point(227, 54);
 			this.employeeRadioButton.Name = "employeeRadioButton";
 			this.employeeRadioButton.Size = new System.Drawing.Size(64, 19);
 			this.employeeRadioButton.TabIndex = 6;
@@ -167,7 +176,7 @@
 			this.tcrRadioButton.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.tcrRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.tcrRadioButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.tcrRadioButton.Location = new System.Drawing.Point(361, 81);
+			this.tcrRadioButton.Location = new System.Drawing.Point(227, 32);
 			this.tcrRadioButton.Name = "tcrRadioButton";
 			this.tcrRadioButton.Size = new System.Drawing.Size(53, 19);
 			this.tcrRadioButton.TabIndex = 5;
@@ -184,8 +193,8 @@
 			this.headerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.headerPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(183)))), ((int)(((byte)(234)))));
-			this.headerPanel.Controls.Add(this.label6);
-			this.headerPanel.Controls.Add(this.pictureBox2);
+			this.headerPanel.Controls.Add(this.nameLabel);
+			this.headerPanel.Controls.Add(this.closePictureBox);
 			this.headerPanel.Location = new System.Drawing.Point(0, 0);
 			this.headerPanel.Name = "headerPanel";
 			this.headerPanel.Size = new System.Drawing.Size(450, 50);
@@ -193,41 +202,43 @@
 			this.headerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.headerPanel_MouseDown);
 			this.headerPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.headerPanel_MouseMove);
 			// 
-			// label6
+			// nameLabel
 			// 
-			this.label6.AutoSize = true;
-			this.label6.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label6.ForeColor = System.Drawing.Color.White;
-			this.label6.Location = new System.Drawing.Point(141, 15);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(44, 21);
-			this.label6.TabIndex = 12;
-			this.label6.Text = "CLK";
+			this.nameLabel.AutoSize = true;
+			this.nameLabel.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.nameLabel.ForeColor = System.Drawing.Color.White;
+			this.nameLabel.Location = new System.Drawing.Point(141, 15);
+			this.nameLabel.Name = "nameLabel";
+			this.nameLabel.Size = new System.Drawing.Size(44, 21);
+			this.nameLabel.TabIndex = 12;
+			this.nameLabel.Text = "CLK";
+			this.nameLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nameLabel_MouseDown);
+			this.nameLabel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.nameLabel_MouseMove);
 			// 
-			// pictureBox2
+			// closePictureBox
 			// 
-			this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-			this.pictureBox2.Location = new System.Drawing.Point(413, 3);
-			this.pictureBox2.Name = "pictureBox2";
-			this.pictureBox2.Size = new System.Drawing.Size(12, 12);
-			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-			this.pictureBox2.TabIndex = 1;
-			this.pictureBox2.TabStop = false;
-			this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+			this.closePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.closePictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.closePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("closePictureBox.Image")));
+			this.closePictureBox.Location = new System.Drawing.Point(413, 3);
+			this.closePictureBox.Name = "closePictureBox";
+			this.closePictureBox.Size = new System.Drawing.Size(12, 12);
+			this.closePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+			this.closePictureBox.TabIndex = 1;
+			this.closePictureBox.TabStop = false;
+			this.closePictureBox.Click += new System.EventHandler(this.closePictureBox_Click);
 			// 
-			// panel1
+			// menuPanel
 			// 
-			this.panel1.BackColor = System.Drawing.Color.DimGray;
-			this.panel1.Controls.Add(this.creditButton);
-			this.panel1.Controls.Add(this.settingButton);
-			this.panel1.Controls.Add(this.panel2);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(135, 158);
-			this.panel1.TabIndex = 8;
+			this.menuPanel.BackColor = System.Drawing.Color.DimGray;
+			this.menuPanel.Controls.Add(this.creditButton);
+			this.menuPanel.Controls.Add(this.settingButton);
+			this.menuPanel.Controls.Add(this.logoPanel);
+			this.menuPanel.Dock = System.Windows.Forms.DockStyle.Left;
+			this.menuPanel.Location = new System.Drawing.Point(0, 0);
+			this.menuPanel.Name = "menuPanel";
+			this.menuPanel.Size = new System.Drawing.Size(135, 158);
+			this.menuPanel.TabIndex = 8;
 			// 
 			// creditButton
 			// 
@@ -263,82 +274,161 @@
 			this.settingButton.UseVisualStyleBackColor = false;
 			this.settingButton.Click += new System.EventHandler(this.settingButton_Click);
 			// 
-			// panel2
+			// logoPanel
 			// 
-			this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(200)))));
-			this.panel2.Controls.Add(this.label2);
-			this.panel2.Controls.Add(this.label1);
-			this.panel2.Controls.Add(this.pictureBox1);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel2.Location = new System.Drawing.Point(0, 0);
-			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(135, 50);
-			this.panel2.TabIndex = 0;
-			this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
-			this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
+			this.logoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(200)))));
+			this.logoPanel.Controls.Add(this.loginkeeperLabel);
+			this.logoPanel.Controls.Add(this.cnsaLabel);
+			this.logoPanel.Controls.Add(this.logoPictureBox);
+			this.logoPanel.Dock = System.Windows.Forms.DockStyle.Top;
+			this.logoPanel.Location = new System.Drawing.Point(0, 0);
+			this.logoPanel.Name = "logoPanel";
+			this.logoPanel.Size = new System.Drawing.Size(135, 50);
+			this.logoPanel.TabIndex = 0;
+			this.logoPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.logoPanel_MouseDown);
+			this.logoPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.logoPanel_MouseMove);
 			// 
-			// label2
+			// loginkeeperLabel
 			// 
-			this.label2.AutoSize = true;
-			this.label2.Font = new System.Drawing.Font("나눔고딕", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label2.ForeColor = System.Drawing.Color.White;
-			this.label2.Location = new System.Drawing.Point(51, 26);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(75, 13);
-			this.label2.TabIndex = 2;
-			this.label2.Text = "Login Keeper";
+			this.loginkeeperLabel.AutoSize = true;
+			this.loginkeeperLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.loginkeeperLabel.Font = new System.Drawing.Font("나눔고딕", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.loginkeeperLabel.ForeColor = System.Drawing.Color.White;
+			this.loginkeeperLabel.Location = new System.Drawing.Point(51, 26);
+			this.loginkeeperLabel.Name = "loginkeeperLabel";
+			this.loginkeeperLabel.Size = new System.Drawing.Size(75, 13);
+			this.loginkeeperLabel.TabIndex = 2;
+			this.loginkeeperLabel.Text = "Login Keeper";
+			this.loginkeeperLabel.Click += new System.EventHandler(this.loginkeeperLabel_Click);
 			// 
-			// label1
+			// cnsaLabel
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label1.ForeColor = System.Drawing.Color.White;
-			this.label1.Location = new System.Drawing.Point(51, 9);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(48, 17);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "CNSA";
+			this.cnsaLabel.AutoSize = true;
+			this.cnsaLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.cnsaLabel.Font = new System.Drawing.Font("나눔고딕 ExtraBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.cnsaLabel.ForeColor = System.Drawing.Color.White;
+			this.cnsaLabel.Location = new System.Drawing.Point(51, 9);
+			this.cnsaLabel.Name = "cnsaLabel";
+			this.cnsaLabel.Size = new System.Drawing.Size(48, 17);
+			this.cnsaLabel.TabIndex = 1;
+			this.cnsaLabel.Text = "CNSA";
+			this.cnsaLabel.Click += new System.EventHandler(this.cnsaLabel_Click);
 			// 
-			// pictureBox1
+			// logoPictureBox
 			// 
-			this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-			this.pictureBox1.Location = new System.Drawing.Point(3, 2);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(51, 43);
-			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-			this.pictureBox1.TabIndex = 0;
-			this.pictureBox1.TabStop = false;
+			this.logoPictureBox.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
+			this.logoPictureBox.Location = new System.Drawing.Point(3, 2);
+			this.logoPictureBox.Name = "logoPictureBox";
+			this.logoPictureBox.Size = new System.Drawing.Size(51, 43);
+			this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.logoPictureBox.TabIndex = 0;
+			this.logoPictureBox.TabStop = false;
+			this.logoPictureBox.Click += new System.EventHandler(this.logoPictureBox_Click);
 			// 
-			// label3
+			// idLabel
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label3.Location = new System.Drawing.Point(146, 65);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(19, 14);
-			this.label3.TabIndex = 9;
-			this.label3.Text = "ID";
+			this.idLabel.AutoSize = true;
+			this.idLabel.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.idLabel.Location = new System.Drawing.Point(13, 10);
+			this.idLabel.Name = "idLabel";
+			this.idLabel.Size = new System.Drawing.Size(19, 14);
+			this.idLabel.TabIndex = 9;
+			this.idLabel.Text = "ID";
 			// 
-			// label4
+			// pwLabel
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label4.Location = new System.Drawing.Point(139, 90);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(26, 14);
-			this.label4.TabIndex = 10;
-			this.label4.Text = "PW";
+			this.pwLabel.AutoSize = true;
+			this.pwLabel.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.pwLabel.Location = new System.Drawing.Point(6, 37);
+			this.pwLabel.Name = "pwLabel";
+			this.pwLabel.Size = new System.Drawing.Size(26, 14);
+			this.pwLabel.TabIndex = 10;
+			this.pwLabel.Text = "PW";
 			// 
-			// label5
+			// infoLabel
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-			this.label5.ForeColor = System.Drawing.Color.Gray;
-			this.label5.Location = new System.Drawing.Point(137, 141);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(289, 14);
-			this.label5.TabIndex = 11;
-			this.label5.Text = "실행하기 전에 큰사넷에 로그인 되어 있는지 확인해주세요";
+			this.infoLabel.AutoSize = true;
+			this.infoLabel.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.infoLabel.ForeColor = System.Drawing.Color.Gray;
+			this.infoLabel.Location = new System.Drawing.Point(3, 91);
+			this.infoLabel.Name = "infoLabel";
+			this.infoLabel.Size = new System.Drawing.Size(289, 14);
+			this.infoLabel.TabIndex = 11;
+			this.infoLabel.Text = "실행하기 전에 큰사넷에 로그인 되어 있는지 확인해주세요";
+			// 
+			// clkPanel
+			// 
+			this.clkPanel.Controls.Add(this.startButton);
+			this.clkPanel.Controls.Add(this.inputId);
+			this.clkPanel.Controls.Add(this.infoLabel);
+			this.clkPanel.Controls.Add(this.idLabel);
+			this.clkPanel.Controls.Add(this.employeeRadioButton);
+			this.clkPanel.Controls.Add(this.tcrRadioButton);
+			this.clkPanel.Controls.Add(this.pwLabel);
+			this.clkPanel.Controls.Add(this.inputPw);
+			this.clkPanel.Controls.Add(this.studentRadioButton);
+			this.clkPanel.Controls.Add(this.changeUserButton);
+			this.clkPanel.Location = new System.Drawing.Point(135, 50);
+			this.clkPanel.Name = "clkPanel";
+			this.clkPanel.Size = new System.Drawing.Size(293, 110);
+			this.clkPanel.TabIndex = 12;
+			// 
+			// settingPanel
+			// 
+			this.settingPanel.Controls.Add(this.applyButton);
+			this.settingPanel.Controls.Add(this.startProgramCheck);
+			this.settingPanel.Location = new System.Drawing.Point(135, 50);
+			this.settingPanel.Name = "settingPanel";
+			this.settingPanel.Size = new System.Drawing.Size(293, 110);
+			this.settingPanel.TabIndex = 13;
+			this.settingPanel.Visible = false;
+			// 
+			// applyButton
+			// 
+			this.applyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.applyButton.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.applyButton.Location = new System.Drawing.Point(215, 84);
+			this.applyButton.Name = "applyButton";
+			this.applyButton.Size = new System.Drawing.Size(75, 21);
+			this.applyButton.TabIndex = 1;
+			this.applyButton.Text = "적용";
+			this.applyButton.UseVisualStyleBackColor = true;
+			this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
+			// 
+			// startProgramCheck
+			// 
+			this.startProgramCheck.AutoSize = true;
+			this.startProgramCheck.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.startProgramCheck.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.startProgramCheck.Location = new System.Drawing.Point(7, 7);
+			this.startProgramCheck.Name = "startProgramCheck";
+			this.startProgramCheck.Size = new System.Drawing.Size(148, 19);
+			this.startProgramCheck.TabIndex = 0;
+			this.startProgramCheck.Text = "시작 프로그램으로 등록";
+			this.startProgramCheck.UseVisualStyleBackColor = true;
+			// 
+			// creditPanel
+			// 
+			this.creditPanel.AutoScroll = true;
+			this.creditPanel.Controls.Add(this.creditLabel);
+			this.creditPanel.Location = new System.Drawing.Point(135, 50);
+			this.creditPanel.Name = "creditPanel";
+			this.creditPanel.Size = new System.Drawing.Size(293, 110);
+			this.creditPanel.TabIndex = 14;
+			this.creditPanel.Visible = false;
+			// 
+			// creditLabel
+			// 
+			this.creditLabel.AutoSize = true;
+			this.creditLabel.Font = new System.Drawing.Font("나눔고딕", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+			this.creditLabel.Location = new System.Drawing.Point(6, 6);
+			this.creditLabel.Name = "creditLabel";
+			this.creditLabel.Size = new System.Drawing.Size(225, 154);
+			this.creditLabel.TabIndex = 0;
+			this.creditLabel.Text = "아이디어: 누구누구\r\n디자인: 누구누구\r\n프로그래밍: 누구누구\r\n기타등등\r\n\r\n이 프로그램은\r\n창의적산출물로 우려먹기 위해 만들어졌으며\r\n말말말아" +
+    "무말아무말\r\n\r\n크레딧 내용은 알아서 바꾸면 됩니다\r\n부탁해요 디자이너\r\n";
+			this.creditLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// CLK
 			// 
@@ -346,22 +436,15 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(428, 158);
-			this.Controls.Add(this.label5);
-			this.Controls.Add(this.label4);
-			this.Controls.Add(this.label3);
-			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.creditPanel);
+			this.Controls.Add(this.settingPanel);
+			this.Controls.Add(this.clkPanel);
+			this.Controls.Add(this.menuPanel);
 			this.Controls.Add(this.headerPanel);
-			this.Controls.Add(this.changeUserButton);
-			this.Controls.Add(this.tcrRadioButton);
-			this.Controls.Add(this.employeeRadioButton);
-			this.Controls.Add(this.studentRadioButton);
-			this.Controls.Add(this.startButton);
-			this.Controls.Add(this.inputPw);
-			this.Controls.Add(this.inputId);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(428, 158);
+			this.MaximumSize = new System.Drawing.Size(1000, 1000);
 			this.MinimumSize = new System.Drawing.Size(428, 158);
 			this.Name = "CLK";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -373,13 +456,18 @@
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
 			this.headerPanel.ResumeLayout(false);
 			this.headerPanel.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-			this.panel1.ResumeLayout(false);
-			this.panel2.ResumeLayout(false);
-			this.panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.closePictureBox)).EndInit();
+			this.menuPanel.ResumeLayout(false);
+			this.logoPanel.ResumeLayout(false);
+			this.logoPanel.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
+			this.clkPanel.ResumeLayout(false);
+			this.clkPanel.PerformLayout();
+			this.settingPanel.ResumeLayout(false);
+			this.settingPanel.PerformLayout();
+			this.creditPanel.ResumeLayout(false);
+			this.creditPanel.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -398,17 +486,23 @@
 		private System.Windows.Forms.RadioButton tcrRadioButton;
 		private System.IO.FileSystemWatcher fileSystemWatcher1;
 		private System.Windows.Forms.Panel headerPanel;
-		private System.Windows.Forms.PictureBox pictureBox2;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.PictureBox closePictureBox;
+		private System.Windows.Forms.Panel menuPanel;
+		private System.Windows.Forms.Panel logoPanel;
+		private System.Windows.Forms.Label loginkeeperLabel;
+		private System.Windows.Forms.Label cnsaLabel;
+		private System.Windows.Forms.PictureBox logoPictureBox;
 		private System.Windows.Forms.Button settingButton;
 		private System.Windows.Forms.Button creditButton;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label pwLabel;
+		private System.Windows.Forms.Label idLabel;
+		private System.Windows.Forms.Label infoLabel;
+		private System.Windows.Forms.Label nameLabel;
+		private System.Windows.Forms.Panel clkPanel;
+		private System.Windows.Forms.Panel settingPanel;
+		private System.Windows.Forms.CheckBox startProgramCheck;
+		private System.Windows.Forms.Button applyButton;
+		private System.Windows.Forms.Panel creditPanel;
+		private System.Windows.Forms.Label creditLabel;
 	}
 }
